@@ -25,6 +25,9 @@ jobs:
         with:
           version: ${{ env.GOLANGCI-LINT_VERSION }}
           working-directory: './src'
+      - name: Generate proto
+        run: go run scrap_proto.go
+        working-directory: './'
       - name: Build
         run: go build -o ./tmp/main main.go
       - name: Test
