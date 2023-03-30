@@ -2,7 +2,7 @@
 
 # COPYRIGHT https://github.com/grpc/grpc-go/tree/master/examples/data/x509
 
-# Create the server CA certs.
+# Create the server.yml CA certs.
 openssl req -x509                                     \
   -newkey rsa:4096                                    \
   -nodes                                              \
@@ -26,7 +26,7 @@ openssl req -x509                                     \
   -extensions test_ca                                 \
   -sha256
 
-# Generate a server cert.
+# Generate a server.yml cert.
 openssl genrsa -out server_key.pem 4096
 openssl req -new                                    \
   -key server_key.pem                               \

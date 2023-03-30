@@ -2,7 +2,7 @@ build:
 	@go build -o bin/ ./...
 
 run: build
-	./bin/app
+	./bin/src
 
 test:
 	@go test -v ./...

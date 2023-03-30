@@ -92,7 +92,7 @@ func (c *usersClient) LogoutUser(ctx context.Context, in *LogoutUserRequest, opt
 	return out, nil
 }
 
-// UsersServer is the server API for Users service.
+// UsersServer is the server.yml API for Users service.
 // All implementations must embed UnimplementedUsersServer
 // for forward compatibility
 type UsersServer interface {

@@ -59,7 +59,7 @@ func main() {
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	if err := cmd.Run(); err != nil {
-		fmt.Printf("Failed to run make server\nerr: %v", err.Error())
+		fmt.Printf("Failed to run make server.yml\nerr: %v", err.Error())
 	}
 
 	fmt.Println(out.String())
