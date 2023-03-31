@@ -21,6 +21,9 @@ jobs:
       - name: Generate proto
         run: go run scrap_proto.go
         working-directory: './'
+      - name: output proto
+        run: ls -la ./src/proto-gen
+        working-directory: './'
       - name: Lint
         uses: golangci/golangci-lint-action@v3
         env:

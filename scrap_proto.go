@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/gocolly/colly"
+	"log"
 	"os"
 	"os/exec"
 )
@@ -49,17 +50,25 @@ func main() {
 	proto := scrapFile(c, protoUrl)
 	genScript := scrapFile(c, genScriptUrl)
 
+	err := os.Mkdir("tmp", 0777)
+	if err != nil {
+		fmt.Printf("Failed to create tmp directory\nerr:%v", err)
+	}
+
 	writeToFile("tmp/Makefile", makefile)
 	writeToFile("tmp/users.proto", proto)
 	writeToFile("tmp/gen_server.sh", genScript)
 
-	os.Chmod("tmp/gen_server.sh", 0777)
+	cmd := exec.Command("chmod", "+x", "tmp/gen_server.sh")
+	if err := cmd.Run(); err != nil {
+		log.Fatalf("Failed to run chmod\nerr: %v", err)
+	}
 
-	cmd := exec.Command("make", "users_server", "-C", "tmp")
+	cmd = exec.Command("make", "users_server", "-C", "tmp")
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	if err := cmd.Run(); err != nil {
-		fmt.Printf("Failed to run make server.yml\nerr: %v", err.Error())
+		log.Fatalf("Failed to run make users_server\nerr: %v\n%v", err.Error(), out.String())
 	}
 
 	fmt.Println(out.String())
