@@ -1,10 +1,12 @@
 <h3> How to run locally? </h3>
+
+You must have Docker installed on your machine.
+
 <p>
     <ul>
         <li>Clone the repository</li>
-        <li>Run <code>./src/cert/create.sh</code> to generate certificate</li>
-        <li>Run <code>go run scrap_proto.go</code> to generate proto files</li>
-        <li>Run <code>docker compose -f docker-compose-dev.yaml up --build</code></li>
+        <li>Run <code> make gen_and_run </code> </li>
     </ul>
 </p>
 
+Voila!
