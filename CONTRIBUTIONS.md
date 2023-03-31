@@ -21,5 +21,5 @@ It starts the following services:
 - Grafana, on port 3000
 - UsersMS, gRPC server on port 50051 and its REST metrics on port 7070
 
-<a href="https://youtu.be/z5wSmeOoYTI"> Here </a> is short youtube video with presentation of cloning the repository, starting the microservice and exploring
+<a href="https://youtu.be/fHDOKKAQNWk"> Here </a> is short youtube video with presentation of cloning the repository, starting the microservice and exploring
 its features.
