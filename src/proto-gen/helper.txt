@@ -1,2 +1,0 @@
-This file just make this dir to be pushed to github.
-This directory is needed to write generated files by /scrap_proto.go

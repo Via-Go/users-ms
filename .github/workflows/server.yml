@@ -1,4 +1,4 @@
-name: server-users
+name: server
 
 on: [ push, pull_request ]
 
@@ -18,12 +18,6 @@ jobs:
           GO_VERSION: 1.20.1
         with:
           go-version: ${{ env.GO_VERSION }}
-      - name: Generate proto
-        run: go run scrap_proto.go
-        working-directory: './'
-      - name: output proto
-        run: ls -la ./src/proto-gen
-        working-directory: './'
       - name: Lint
         uses: golangci/golangci-lint-action@v3
         env:
