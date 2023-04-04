@@ -5,6 +5,7 @@ import (
 	grpcprometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/wzslr321/road_runner/server/users/src/api"
+	"github.com/wzslr321/road_runner/server/users/src/logic"
 	"github.com/wzslr321/road_runner/server/users/src/pkg/interceptors"
 	"github.com/wzslr321/road_runner/server/users/src/pkg/metrics"
 	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
@@ -23,8 +24,8 @@ func main() {
 	}
 	intercs := interceptors.NewInterceptorManager(ms)
 
-	service := api.NewUsersService()
-	service = api.NewLoggingService(service)
+	service := logic.NewUsersService()
+	service = logic.NewLoggingService(service)
 
 	listener, err := net.Listen("tcp", ":50051")
 	if err != nil {

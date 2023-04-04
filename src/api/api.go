@@ -6,25 +6,25 @@ import (
 )
 
 func (s *Server) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUserResponse, error) {
-	return s.service.handleGetUser(ctx, req)
+	return s.service.HandleGetUser(ctx, req)
 }
 
 func (s *Server) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (*pb.UpdateUserResponse, error) {
-	return s.service.handleUpdateUser(ctx, req)
+	return s.service.HandleUpdateUser(ctx, req)
 }
 
 func (s *Server) DeleteUser(ctx context.Context, req *pb.DeleteUserRequest) (*pb.DeleteUserResponse, error) {
-	return s.service.handleDeleteUser(ctx, req)
+	return s.service.HandleDeleteUser(ctx, req)
 }
 
 func (s *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
-	return s.service.handleCreateUser(ctx, req)
+	return s.service.HandleCreateUser(ctx, req)
 }
 
 func (s *Server) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (*pb.LoginUserResponse, error) {
-	return s.service.handleLoginUser(ctx, req)
+	return s.service.HandleLoginUser(ctx, req)
 }
 
 func (s *Server) LogoutUser(ctx context.Context, req *pb.LogoutUserRequest) (*pb.LogoutUserResponse, error) {
-	return s.service.handleLogoutUser(ctx, req)
+	return s.service.HandleLogoutUser(ctx, req)
 }
