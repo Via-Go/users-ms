@@ -5,16 +5,16 @@ import (
 	"github.com/gocql/gocql"
 	"github.com/google/uuid"
 	"github.com/scylladb/gocqlx/v2"
-	"github.com/wzslr321/road_runner/server/users/src/pkg/auth"
 	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
 	"github.com/wzslr321/road_runner/server/users/src/types"
+	"github.com/wzslr321/road_runner/server/users/src/util"
 	"golang.org/x/crypto/bcrypt"
 	"log"
 )
 
 type Scylla struct {
 	cluster   *gocql.ClusterConfig
-	validator auth.Validator
+	validator util.Validator
 }
 
 func New() *Scylla {
