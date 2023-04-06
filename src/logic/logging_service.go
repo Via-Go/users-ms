@@ -30,7 +30,7 @@ func NewLoggingService(child IUserService) ILoggingService {
 
 func (s *LoggingService) LogHandleGetUser(ctx context.Context, req *pb.GetUserRequest) (serviceResponse *ServiceResponse) {
 	defer func(start time.Time) {
-		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntook=%v", req.Username, serviceResponse.message, time.Since(start)))
+		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntook=%v", req.Username, serviceResponse.Message, time.Since(start)))
 
 	}(time.Now())
 	return s.child.HandleGetUser(ctx, req)
@@ -38,7 +38,7 @@ func (s *LoggingService) LogHandleGetUser(ctx context.Context, req *pb.GetUserRe
 
 func (s *LoggingService) LogHandleUpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (serviceResponse *ServiceResponse) {
 	defer func(start time.Time) {
-		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Username, serviceResponse.message, time.Since(start)))
+		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Username, serviceResponse.Message, time.Since(start)))
 
 	}(time.Now())
 	return s.child.HandleUpdateUser(ctx, req)
@@ -46,28 +46,28 @@ func (s *LoggingService) LogHandleUpdateUser(ctx context.Context, req *pb.Update
 
 func (s *LoggingService) LogHandleDeleteUser(ctx context.Context, req *pb.DeleteUserRequest) (serviceResponse *ServiceResponse) {
 	defer func(start time.Time) {
-		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Id, serviceResponse.message, time.Since(start)))
+		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Id, serviceResponse.Message, time.Since(start)))
 	}(time.Now())
 	return s.child.HandleDeleteUser(ctx, req)
 }
 
 func (s *LoggingService) LogHandleCreateUser(ctx context.Context, req *pb.CreateUserRequest) (serviceResponse *ServiceResponse) {
 	defer func(start time.Time) {
-		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Username, serviceResponse.message, time.Since(start)))
+		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Username, serviceResponse.Message, time.Since(start)))
 	}(time.Now())
 	return s.child.HandleCreateUser(ctx, req)
 }
 
 func (s *LoggingService) LogHandleLoginUser(ctx context.Context, req *pb.LoginUserRequest) (serviceResponse *ServiceResponse) {
 	defer func(start time.Time) {
-		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Username, serviceResponse.message, time.Since(start)))
+		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Username, serviceResponse.Message, time.Since(start)))
 	}(time.Now())
 	return s.child.HandleLoginUser(ctx, req)
 }
 
 func (s *LoggingService) LogHandleLogoutUser(ctx context.Context, req *pb.LogoutUserRequest) (serviceResponse *ServiceResponse) {
 	defer func(start time.Time) {
-		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Id, serviceResponse.message, time.Since(start)))
+		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Id, serviceResponse.Message, time.Since(start)))
 	}(time.Now())
 	return s.child.HandleLogoutUser(ctx, req)
 }

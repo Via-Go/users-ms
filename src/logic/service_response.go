@@ -8,7 +8,7 @@ const (
 )
 
 type ServiceResponse struct {
-	status  OperationStatus
-	message string
-	body    []interface{}
+	Status  OperationStatus
+	Message string
+	Body    []interface{}
 }

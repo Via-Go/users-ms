@@ -35,47 +35,47 @@ func (s *UsersService) HandleGetUser(ctx context.Context, req *pb.GetUserRequest
 	user, err := s.db.GetUser(req.GetUsername())
 	if err != nil {
 		return &ServiceResponse{
-			status:  FAILED,
-			message: err.Error(),
-			body:    []interface{}{},
+			Status:  FAILED,
+			Message: err.Error(),
+			Body:    []interface{}{},
 		}
 	}
 
 	return &ServiceResponse{
-		status:  SUCCESS,
-		message: "User found",
-		body:    []interface{}{user},
+		Status:  SUCCESS,
+		Message: "User found",
+		Body:    []interface{}{user},
 	}
 }
 func (s *UsersService) HandleUpdateUser(ctx context.Context, req *pb.UpdateUserRequest) *ServiceResponse {
 	err := s.db.UpdateUser(req)
 	if err != nil {
 		return &ServiceResponse{
-			status:  FAILED,
-			message: err.Error(),
-			body:    []interface{}{},
+			Status:  FAILED,
+			Message: err.Error(),
+			Body:    []interface{}{},
 		}
 	}
 
 	return &ServiceResponse{
-		status:  SUCCESS,
-		message: "User updated",
-		body:    []interface{}{},
+		Status:  SUCCESS,
+		Message: "User updated",
+		Body:    []interface{}{},
 	}
 }
 func (s *UsersService) HandleDeleteUser(ctx context.Context, req *pb.DeleteUserRequest) *ServiceResponse {
 	err := s.db.DeleteUser(req.Id)
 	if err != nil {
 		return &ServiceResponse{
-			status:  FAILED,
-			message: err.Error(),
-			body:    []interface{}{},
+			Status:  FAILED,
+			Message: err.Error(),
+			Body:    []interface{}{},
 		}
 	}
 	return &ServiceResponse{
-		status:  SUCCESS,
-		message: "Used deleted",
-		body:    []interface{}{},
+		Status:  SUCCESS,
+		Message: "Used deleted",
+		Body:    []interface{}{},
 	}
 }
 
@@ -83,18 +83,18 @@ func (s *UsersService) HandleCreateUser(ctx context.Context, req *pb.CreateUserR
 	ok := s.validator.ValidatePassword(req.Password)
 	if !ok {
 		return &ServiceResponse{
-			status:  FAILED,
-			message: "Invalid password, must 8-16 characters long, one uppercase letter, one lowercase letter, one digit and one special character",
-			body:    []interface{}{},
+			Status:  FAILED,
+			Message: "Invalid password, must 8-16 characters long, one uppercase letter, one lowercase letter, one digit and one special character",
+			Body:    []interface{}{},
 		}
 	}
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), 8)
 	if err != nil {
 		return &ServiceResponse{
-			status:  FAILED,
-			message: "Couldn't hash password",
-			body:    []interface{}{},
+			Status:  FAILED,
+			Message: "Couldn't hash password",
+			Body:    []interface{}{},
 		}
 	}
 
@@ -108,30 +108,30 @@ func (s *UsersService) HandleCreateUser(ctx context.Context, req *pb.CreateUserR
 	err = s.db.CreateUser(user)
 	if err != nil {
 		return &ServiceResponse{
-			status:  FAILED,
-			message: err.Error(),
-			body:    []interface{}{},
+			Status:  FAILED,
+			Message: err.Error(),
+			Body:    []interface{}{},
 		}
 	}
 
 	return &ServiceResponse{
-		status:  SUCCESS,
-		message: "User created",
-		body:    []interface{}{user},
+		Status:  SUCCESS,
+		Message: "User created",
+		Body:    []interface{}{user},
 	}
 }
 
 func (s *UsersService) HandleLoginUser(ctx context.Context, req *pb.LoginUserRequest) *ServiceResponse {
 	return &ServiceResponse{
-		status:  0,
-		message: "",
-		body:    nil,
+		Status:  0,
+		Message: "",
+		Body:    nil,
 	}
 }
 func (s *UsersService) HandleLogoutUser(ctx context.Context, req *pb.LogoutUserRequest) *ServiceResponse {
 	return &ServiceResponse{
-		status:  0,
-		message: "",
-		body:    nil,
+		Status:  0,
+		Message: "",
+		Body:    nil,
 	}
 }
