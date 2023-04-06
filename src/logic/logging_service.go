@@ -10,16 +10,14 @@ import (
 
 type LoggingService struct {
 	logger *zap.Logger
-	child  Service
+	child  IUserService
 }
 
-func NewLoggingService(child Service) Service {
+func NewLoggingService(child IUserService) IUserService {
 	logger, _ := zap.NewProduction()
 	defer logger.Sync() //nolint:errcheck
 	return &LoggingService{child: child, logger: logger}
 }
-
-// TODO make these message better, placeholders for now
 
 func (s *LoggingService) HandleGetUser(ctx context.Context, req *pb.GetUserRequest) (user *pb.GetUserResponse, err error) {
 	defer func(start time.Time) {

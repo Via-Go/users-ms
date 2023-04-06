@@ -3,11 +3,15 @@ package util
 import "unicode"
 
 // gotta rename it....
-type Validater interface {
+type IValidator interface {
 	ValidatePassword(password string) bool
 }
 
 type Validator struct{}
+
+func NewValidator() *Validator {
+	return &Validator{}
+}
 
 func (v *Validator) ValidatePassword(password string) bool {
 	hasDigit, hasUpper, hasLower := false, false, false
