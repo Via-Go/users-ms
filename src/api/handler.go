@@ -8,7 +8,7 @@ import (
 	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
 )
 
-func (s *Server) HandleGetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUserResponse, error) {
+func (s *Server) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUserResponse, error) {
 	serviceResponse := s.service.ExecuteAndLogGetUser(ctx, req)
 	if serviceResponse.Status != logic.SUCCESS {
 		return nil, errors.New(serviceResponse.Message)
@@ -25,7 +25,7 @@ func (s *Server) HandleGetUser(ctx context.Context, req *pb.GetUserRequest) (*pb
 	return response, nil
 }
 
-func (s *Server) HandleUpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (*pb.UpdateUserResponse, error) {
+func (s *Server) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (*pb.UpdateUserResponse, error) {
 	serviceResponse := s.service.ExecuteAndLogUpdateUser(ctx, req)
 	if serviceResponse.Status != logic.SUCCESS {
 		return nil, errors.New(serviceResponse.Message)
@@ -39,7 +39,7 @@ func (s *Server) HandleUpdateUser(ctx context.Context, req *pb.UpdateUserRequest
 	return response, nil
 }
 
-func (s *Server) HandleDeleteUser(ctx context.Context, req *pb.DeleteUserRequest) (*pb.DeleteUserResponse, error) {
+func (s *Server) DeleteUser(ctx context.Context, req *pb.DeleteUserRequest) (*pb.DeleteUserResponse, error) {
 	serviceResponse := s.service.ExecuteAndLogDeleteUser(ctx, req)
 	if serviceResponse.Status != logic.SUCCESS {
 		return nil, errors.New(serviceResponse.Message)
@@ -53,7 +53,7 @@ func (s *Server) HandleDeleteUser(ctx context.Context, req *pb.DeleteUserRequest
 	return response, nil
 }
 
-func (s *Server) HandleCreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
+func (s *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
 	serviceResponse := s.service.ExecuteAndLogCreateUser(ctx, req)
 	if serviceResponse.Status != logic.SUCCESS {
 		return nil, errors.New(serviceResponse.Message)
@@ -67,7 +67,7 @@ func (s *Server) HandleCreateUser(ctx context.Context, req *pb.CreateUserRequest
 	return response, nil
 }
 
-func (s *Server) HandleLoginUser(ctx context.Context, req *pb.LoginUserRequest) (*pb.LoginUserResponse, error) {
+func (s *Server) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (*pb.LoginUserResponse, error) {
 	serviceResponse := s.service.ExecuteAndLogLoginUser(ctx, req)
 	if serviceResponse.Status != logic.SUCCESS {
 		return nil, errors.New(serviceResponse.Message)
@@ -81,7 +81,7 @@ func (s *Server) HandleLoginUser(ctx context.Context, req *pb.LoginUserRequest) 
 	return response, nil
 }
 
-func (s *Server) HandleLogoutUser(ctx context.Context, req *pb.LogoutUserRequest) (*pb.LogoutUserResponse, error) {
+func (s *Server) LogoutUser(ctx context.Context, req *pb.LogoutUserRequest) (*pb.LogoutUserResponse, error) {
 	serviceResponse := s.service.ExecuteAndLogLogoutUser(ctx, req)
 	if serviceResponse.Status != logic.SUCCESS {
 		return nil, errors.New(serviceResponse.Message)
