@@ -10,10 +10,10 @@ import (
 )
 
 type IUserStorage interface {
-	CreateUser(user *domain.User) error
-	GetUser(username string) (*domain.User, error)
+	SaveUser(user *domain.User) error
+	FindUserByUsername(username string) (*domain.User, error)
 	UpdateUser(req *pb.UpdateUserRequest) error
-	DeleteUser(id string) error
+	DeleteUserByID(id string) error
 }
 
 type UserStorage struct {
@@ -49,7 +49,7 @@ func New() *UserStorage {
 }
 
 // make unique or sth
-func (s *UserStorage) CreateUser(user *domain.User) error {
+func (s *UserStorage) SaveUser(user *domain.User) error {
 	session, err := gocqlx.WrapSession(s.cluster.CreateSession())
 	if err != nil {
 		return err
@@ -81,7 +81,7 @@ func (s *UserStorage) UpdateUser(req *pb.UpdateUserRequest) error {
 
 // I think i should accept user model here and then convert it to proto
 // but is it worth it tho?
-func (s *UserStorage) GetUser(username string) (*domain.User, error) {
+func (s *UserStorage) FindUserByUsername(username string) (*domain.User, error) {
 	session, err := gocqlx.WrapSession(s.cluster.CreateSession())
 	if err != nil {
 		return nil, err
@@ -101,7 +101,7 @@ func (s *UserStorage) GetUser(username string) (*domain.User, error) {
 	return users[0], nil
 }
 
-func (s *UserStorage) DeleteUser(id string) error {
+func (s *UserStorage) DeleteUserByID(id string) error {
 	session, err := gocqlx.WrapSession(s.cluster.CreateSession())
 	if err != nil {
 		return err

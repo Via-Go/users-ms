@@ -32,7 +32,7 @@ func NewUsersService() *UsersService {
 }
 
 func (s *UsersService) HandleGetUser(ctx context.Context, req *pb.GetUserRequest) *ServiceResponse {
-	user, err := s.db.GetUser(req.GetUsername())
+	user, err := s.db.FindUserByUsername(req.GetUsername())
 	if err != nil {
 		return &ServiceResponse{
 			Status:  FAILED,
@@ -64,7 +64,7 @@ func (s *UsersService) HandleUpdateUser(ctx context.Context, req *pb.UpdateUserR
 	}
 }
 func (s *UsersService) HandleDeleteUser(ctx context.Context, req *pb.DeleteUserRequest) *ServiceResponse {
-	err := s.db.DeleteUser(req.Id)
+	err := s.db.DeleteUserByID(req.Id)
 	if err != nil {
 		return &ServiceResponse{
 			Status:  FAILED,
@@ -105,7 +105,7 @@ func (s *UsersService) HandleCreateUser(ctx context.Context, req *pb.CreateUserR
 		Id:       uuid.Must(uuid.NewRandom()).String(),
 	}
 
-	err = s.db.CreateUser(user)
+	err = s.db.SaveUser(user)
 	if err != nil {
 		return &ServiceResponse{
 			Status:  FAILED,
