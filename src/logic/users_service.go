@@ -11,12 +11,12 @@ import (
 )
 
 type IUserService interface {
-	HandleGetUser(ctx context.Context, req *pb.GetUserRequest) *ServiceResponse
-	HandleUpdateUser(ctx context.Context, req *pb.UpdateUserRequest) *ServiceResponse
-	HandleDeleteUser(ctx context.Context, req *pb.DeleteUserRequest) *ServiceResponse
-	HandleCreateUser(ctx context.Context, req *pb.CreateUserRequest) *ServiceResponse
-	HandleLoginUser(ctx context.Context, req *pb.LoginUserRequest) *ServiceResponse
-	HandleLogoutUser(ctx context.Context, req *pb.LogoutUserRequest) *ServiceResponse
+	GetUser(ctx context.Context, req *pb.GetUserRequest) *ServiceResponse
+	UpdateUser(ctx context.Context, req *pb.UpdateUserRequest) *ServiceResponse
+	DeleteUser(ctx context.Context, req *pb.DeleteUserRequest) *ServiceResponse
+	CreateUser(ctx context.Context, req *pb.CreateUserRequest) *ServiceResponse
+	LoginUser(ctx context.Context, req *pb.LoginUserRequest) *ServiceResponse
+	LogoutUser(ctx context.Context, req *pb.LogoutUserRequest) *ServiceResponse
 }
 
 type UsersService struct {
@@ -31,7 +31,7 @@ func NewUsersService() *UsersService {
 	}
 }
 
-func (s *UsersService) HandleGetUser(ctx context.Context, req *pb.GetUserRequest) *ServiceResponse {
+func (s *UsersService) GetUser(ctx context.Context, req *pb.GetUserRequest) *ServiceResponse {
 	user, err := s.db.FindUserByUsername(req.GetUsername())
 	if err != nil {
 		return &ServiceResponse{
@@ -47,8 +47,8 @@ func (s *UsersService) HandleGetUser(ctx context.Context, req *pb.GetUserRequest
 		Body:    []interface{}{user},
 	}
 }
-func (s *UsersService) HandleUpdateUser(ctx context.Context, req *pb.UpdateUserRequest) *ServiceResponse {
-	err := s.db.UpdateUser(req)
+func (s *UsersService) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest) *ServiceResponse {
+	err := s.db.UpdateUserByID(req)
 	if err != nil {
 		return &ServiceResponse{
 			Status:  FAILED,
@@ -63,7 +63,7 @@ func (s *UsersService) HandleUpdateUser(ctx context.Context, req *pb.UpdateUserR
 		Body:    []interface{}{},
 	}
 }
-func (s *UsersService) HandleDeleteUser(ctx context.Context, req *pb.DeleteUserRequest) *ServiceResponse {
+func (s *UsersService) DeleteUser(ctx context.Context, req *pb.DeleteUserRequest) *ServiceResponse {
 	err := s.db.DeleteUserByID(req.Id)
 	if err != nil {
 		return &ServiceResponse{
@@ -79,7 +79,7 @@ func (s *UsersService) HandleDeleteUser(ctx context.Context, req *pb.DeleteUserR
 	}
 }
 
-func (s *UsersService) HandleCreateUser(ctx context.Context, req *pb.CreateUserRequest) *ServiceResponse {
+func (s *UsersService) CreateUser(ctx context.Context, req *pb.CreateUserRequest) *ServiceResponse {
 	ok := s.validator.ValidatePassword(req.Password)
 	if !ok {
 		return &ServiceResponse{
@@ -121,14 +121,14 @@ func (s *UsersService) HandleCreateUser(ctx context.Context, req *pb.CreateUserR
 	}
 }
 
-func (s *UsersService) HandleLoginUser(ctx context.Context, req *pb.LoginUserRequest) *ServiceResponse {
+func (s *UsersService) LoginUser(ctx context.Context, req *pb.LoginUserRequest) *ServiceResponse {
 	return &ServiceResponse{
 		Status:  0,
 		Message: "",
 		Body:    nil,
 	}
 }
-func (s *UsersService) HandleLogoutUser(ctx context.Context, req *pb.LogoutUserRequest) *ServiceResponse {
+func (s *UsersService) LogoutUser(ctx context.Context, req *pb.LogoutUserRequest) *ServiceResponse {
 	return &ServiceResponse{
 		Status:  0,
 		Message: "",

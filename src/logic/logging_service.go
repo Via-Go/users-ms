@@ -9,12 +9,12 @@ import (
 )
 
 type ILoggingService interface {
-	LogHandleGetUser(ctx context.Context, req *pb.GetUserRequest) (serviceResponse *ServiceResponse)
-	LogHandleUpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (ServiceResponse *ServiceResponse)
-	LogHandleDeleteUser(ctx context.Context, req *pb.DeleteUserRequest) (serviceResponse *ServiceResponse)
-	LogHandleCreateUser(ctx context.Context, req *pb.CreateUserRequest) (serviceResponse *ServiceResponse)
-	LogHandleLoginUser(ctx context.Context, req *pb.LoginUserRequest) (serviceResponse *ServiceResponse)
-	LogHandleLogoutUser(ctx context.Context, req *pb.LogoutUserRequest) (serviceResponse *ServiceResponse)
+	ExecuteAndLogGetUser(ctx context.Context, req *pb.GetUserRequest) (serviceResponse *ServiceResponse)
+	ExecuteAndLogUpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (ServiceResponse *ServiceResponse)
+	ExecuteAndLogDeleteUser(ctx context.Context, req *pb.DeleteUserRequest) (serviceResponse *ServiceResponse)
+	ExecuteAndLogCreateUser(ctx context.Context, req *pb.CreateUserRequest) (serviceResponse *ServiceResponse)
+	ExecuteAndLogLoginUser(ctx context.Context, req *pb.LoginUserRequest) (serviceResponse *ServiceResponse)
+	ExecuteAndLogLogoutUser(ctx context.Context, req *pb.LogoutUserRequest) (serviceResponse *ServiceResponse)
 }
 
 type LoggingService struct {
@@ -28,46 +28,46 @@ func NewLoggingService(child IUserService) ILoggingService {
 	return &LoggingService{child: child, logger: logger}
 }
 
-func (s *LoggingService) LogHandleGetUser(ctx context.Context, req *pb.GetUserRequest) (serviceResponse *ServiceResponse) {
+func (s *LoggingService) ExecuteAndLogGetUser(ctx context.Context, req *pb.GetUserRequest) (serviceResponse *ServiceResponse) {
 	defer func(start time.Time) {
 		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntook=%v", req.Username, serviceResponse.Message, time.Since(start)))
 
 	}(time.Now())
-	return s.child.HandleGetUser(ctx, req)
+	return s.child.GetUser(ctx, req)
 }
 
-func (s *LoggingService) LogHandleUpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (serviceResponse *ServiceResponse) {
+func (s *LoggingService) ExecuteAndLogUpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (serviceResponse *ServiceResponse) {
 	defer func(start time.Time) {
 		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Username, serviceResponse.Message, time.Since(start)))
 
 	}(time.Now())
-	return s.child.HandleUpdateUser(ctx, req)
+	return s.child.UpdateUser(ctx, req)
 }
 
-func (s *LoggingService) LogHandleDeleteUser(ctx context.Context, req *pb.DeleteUserRequest) (serviceResponse *ServiceResponse) {
+func (s *LoggingService) ExecuteAndLogDeleteUser(ctx context.Context, req *pb.DeleteUserRequest) (serviceResponse *ServiceResponse) {
 	defer func(start time.Time) {
 		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Id, serviceResponse.Message, time.Since(start)))
 	}(time.Now())
-	return s.child.HandleDeleteUser(ctx, req)
+	return s.child.DeleteUser(ctx, req)
 }
 
-func (s *LoggingService) LogHandleCreateUser(ctx context.Context, req *pb.CreateUserRequest) (serviceResponse *ServiceResponse) {
+func (s *LoggingService) ExecuteAndLogCreateUser(ctx context.Context, req *pb.CreateUserRequest) (serviceResponse *ServiceResponse) {
 	defer func(start time.Time) {
 		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Username, serviceResponse.Message, time.Since(start)))
 	}(time.Now())
-	return s.child.HandleCreateUser(ctx, req)
+	return s.child.CreateUser(ctx, req)
 }
 
-func (s *LoggingService) LogHandleLoginUser(ctx context.Context, req *pb.LoginUserRequest) (serviceResponse *ServiceResponse) {
+func (s *LoggingService) ExecuteAndLogLoginUser(ctx context.Context, req *pb.LoginUserRequest) (serviceResponse *ServiceResponse) {
 	defer func(start time.Time) {
 		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Username, serviceResponse.Message, time.Since(start)))
 	}(time.Now())
-	return s.child.HandleLoginUser(ctx, req)
+	return s.child.LoginUser(ctx, req)
 }
 
-func (s *LoggingService) LogHandleLogoutUser(ctx context.Context, req *pb.LogoutUserRequest) (serviceResponse *ServiceResponse) {
+func (s *LoggingService) ExecuteAndLogLogoutUser(ctx context.Context, req *pb.LogoutUserRequest) (serviceResponse *ServiceResponse) {
 	defer func(start time.Time) {
 		s.logger.Info(fmt.Sprintf("user=%v\nerr=%s\ntime\ntook=%v", req.Id, serviceResponse.Message, time.Since(start)))
 	}(time.Now())
-	return s.child.HandleLogoutUser(ctx, req)
+	return s.child.LogoutUser(ctx, req)
 }

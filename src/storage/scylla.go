@@ -12,7 +12,7 @@ import (
 type IUserStorage interface {
 	SaveUser(user *domain.User) error
 	FindUserByUsername(username string) (*domain.User, error)
-	UpdateUser(req *pb.UpdateUserRequest) error
+	UpdateUserByID(req *pb.UpdateUserRequest) error
 	DeleteUserByID(id string) error
 }
 
@@ -64,7 +64,7 @@ func (s *UserStorage) SaveUser(user *domain.User) error {
 	return nil
 }
 
-func (s *UserStorage) UpdateUser(req *pb.UpdateUserRequest) error {
+func (s *UserStorage) UpdateUserByID(req *pb.UpdateUserRequest) error {
 	session, err := gocqlx.WrapSession(s.cluster.CreateSession())
 	if err != nil {
 		return err
