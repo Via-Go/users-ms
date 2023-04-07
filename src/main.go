@@ -25,7 +25,7 @@ func main() {
 	intercs := interceptors.NewInterceptorManager(ms)
 
 	service := logic.NewUsersService()
-	service = logic.NewLoggingService(service)
+	loggingService := logic.NewLoggingService(service)
 
 	listener, err := net.Listen("tcp", ":50051")
 	if err != nil {
@@ -45,7 +45,7 @@ func main() {
 		grpc.ChainUnaryInterceptor(intercs.EnsureValidToken),
 	)
 
-	pb.RegisterUsersServer(server, api.NewServer(service))
+	pb.RegisterUsersServer(server, api.NewServer(loggingService))
 	grpcprometheus.Register(server)
 	http.Handle("/metrics", promhttp.Handler())
 	server.Serve(listener) //nolint:errcheck

@@ -6,13 +6,12 @@ import (
 )
 
 type Server struct {
-	service logic.Service
+	service logic.ILoggingService
 	pb.UnimplementedUsersServer
 }
 
-func NewServer(service logic.Service) *Server {
-	s := &Server{
+func NewServer(service logic.ILoggingService) *Server {
+	return &Server{
 		service: service,
 	}
-	return s
 }
