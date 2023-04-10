@@ -28,13 +28,13 @@ type UsersService struct {
 	authorizer    IAuthorizer
 }
 
-func NewUsersService() *UsersService {
-	db := storage.New()
-	userMapper := mapper.NewUserMapper()
+func NewUsersService(db storage.IUserStorage, userMapper mapper.IUserMapper, validator util.IValidator, authenticator IAuthenticator, authorizer IAuthorizer) *UsersService {
 	return &UsersService{
-		validator:     util.NewValidator(),
-		authenticator: NewAuthenticator(db, userMapper),
-		authorizer:    NewAuthorizer(),
+		db:            db,
+		validator:     validator,
+		mapper:        userMapper,
+		authenticator: authenticator,
+		authorizer:    authorizer,
 	}
 }
 
@@ -109,6 +109,7 @@ func (s *UsersService) CreateUser(ctx context.Context, req *pb.CreateUserRequest
 		Username: req.Username,
 		Password: string(hashedPassword),
 		Email:    req.Email,
+		Role:     int(domain.Common),
 		Id:       uuid.Must(uuid.NewRandom()).String(),
 	}
 

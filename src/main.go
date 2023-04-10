@@ -6,9 +6,13 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/wzslr321/road_runner/server/users/src/api"
 	"github.com/wzslr321/road_runner/server/users/src/logic"
+	"github.com/wzslr321/road_runner/server/users/src/mapper"
 	"github.com/wzslr321/road_runner/server/users/src/pkg/interceptors"
 	"github.com/wzslr321/road_runner/server/users/src/pkg/metrics"
 	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
+	"github.com/wzslr321/road_runner/server/users/src/storage"
+	"github.com/wzslr321/road_runner/server/users/src/util"
+	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/keepalive"
@@ -17,15 +21,38 @@ import (
 	"net/http"
 )
 
+var db *storage.UserStorage
+var validator *util.Validator
+var loggingService *logic.LoggingService
+var usersMapper *mapper.UserMapper
+var usersService *logic.UsersService
+var authenticator *logic.Authenticator
+var authorizer *logic.Authorizer
+
+func init() {
+	logger, _ := zap.NewProduction()
+	defer func(logger *zap.Logger) {
+		err := logger.Sync()
+		if err != nil {
+
+		}
+	}(logger) //nolint:errcheck
+
+	db = storage.New()
+	validator = util.NewValidator()
+	usersMapper = mapper.NewUserMapper()
+	authenticator = logic.NewAuthenticator(db, usersMapper)
+	authorizer = logic.NewAuthorizer()
+	usersService = logic.NewUsersService(db, usersMapper, validator, authenticator, authorizer)
+	loggingService = logic.NewLoggingService(logger, usersService)
+}
+
 func main() {
 	ms, err := metrics.Create("0.0.0.0:7070", "users")
 	if err != nil {
 		log.Fatalf("Failed to create metrics: %v", err)
 	}
 	intercs := interceptors.NewInterceptorManager(ms)
-
-	service := logic.NewUsersService()
-	loggingService := logic.NewLoggingService(service)
 
 	listener, err := net.Listen("tcp", ":50051")
 	if err != nil {

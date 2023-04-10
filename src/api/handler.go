@@ -79,15 +79,13 @@ func (s *Server) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (*pb.L
 	tokens := serviceResponse.Body[0].(map[string]string)
 	userDTO := serviceResponse.Body[1].(*pb.UserDTO)
 
-	response := &pb.LoginUserResponse{
+	return &pb.LoginUserResponse{
 		Success:      true,
 		Message:      serviceResponse.Message,
 		JwtToken:     tokens["Base token"],
 		RefreshToken: tokens["Refresh token"],
 		UserDTO:      userDTO,
-	}
-
-	return response, nil
+	}, nil
 }
 
 func (s *Server) LogoutUser(ctx context.Context, req *pb.LogoutUserRequest) (*pb.LogoutUserResponse, error) {
