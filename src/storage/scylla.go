@@ -56,7 +56,7 @@ func (s *UserStorage) SaveUser(user *domain.User) error {
 		return err
 	}
 
-	q := fmt.Sprintf("INSERT INTO users.users (id, email, password, role, username) VALUES ('%s', '%s', '%s', %s, '%s')", user.Id, user.Email, user.Password, strconv.Itoa(int(user.Role)), user.Username)
+	q := fmt.Sprintf("INSERT INTO users.users (id, email, password, role, username) VALUES ('%s', '%s', '%s', %s, '%s')", user.Id, user.Email, user.Password, strconv.Itoa(user.Role), user.Username)
 	err = session.Query(q, nil).Exec()
 	if err != nil {
 		return err
