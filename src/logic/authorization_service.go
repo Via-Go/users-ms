@@ -33,7 +33,7 @@ func (s *Authorizer) GenerateTokens(userDTO *pb.UserDTO) (map[string]string, err
 	refreshTokenClaims := domain.NewJwtClaims(
 		userDTO,
 		jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(15 * time.Minute).Unix(),
+			ExpiresAt: time.Now().Add(30 * time.Minute).Unix(),
 		},
 	)
 
