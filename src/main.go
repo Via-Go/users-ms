@@ -34,7 +34,7 @@ func init() {
 	defer func(logger *zap.Logger) {
 		err := logger.Sync()
 		if err != nil {
-
+			panic("Couldn't initialize logger")
 		}
 	}(logger) //nolint:errcheck
 
