@@ -22,10 +22,8 @@ type LoggingService struct {
 	child  IUserService
 }
 
-func NewLoggingService(child IUserService) ILoggingService {
-	logger, _ := zap.NewProduction()
-	defer logger.Sync() //nolint:errcheck
-	return &LoggingService{child: child, logger: logger}
+func NewLoggingService(logger *zap.Logger, child IUserService) *LoggingService {
+	return &LoggingService{logger: logger, child: child}
 }
 
 func (s *LoggingService) ExecuteAndLogGetUser(ctx context.Context, req *pb.GetUserRequest) (serviceResponse *ServiceResponse) {

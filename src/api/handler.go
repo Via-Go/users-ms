@@ -70,15 +70,22 @@ func (s *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb
 func (s *Server) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (*pb.LoginUserResponse, error) {
 	serviceResponse := s.service.ExecuteAndLogLoginUser(ctx, req)
 	if serviceResponse.Status != logic.SUCCESS {
-		return nil, errors.New(serviceResponse.Message)
+		return &pb.LoginUserResponse{
+			Success: false,
+			Message: serviceResponse.Message,
+		}, errors.New(serviceResponse.Message)
 	}
 
-	response := &pb.LoginUserResponse{
-		Success: true,
-		Message: serviceResponse.Message,
-	}
+	tokens := serviceResponse.Body[0].(map[string]string)
+	userDTO := serviceResponse.Body[1].(*pb.UserDTO)
 
-	return response, nil
+	return &pb.LoginUserResponse{
+		Success:      true,
+		Message:      serviceResponse.Message,
+		JwtToken:     tokens["Base token"],
+		RefreshToken: tokens["Refresh token"],
+		UserDTO:      userDTO,
+	}, nil
 }
 
 func (s *Server) LogoutUser(ctx context.Context, req *pb.LogoutUserRequest) (*pb.LogoutUserResponse, error) {

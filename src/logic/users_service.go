@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/google/uuid"
 	"github.com/wzslr321/road_runner/server/users/src/domain"
+	"github.com/wzslr321/road_runner/server/users/src/mapper"
 	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
 	"github.com/wzslr321/road_runner/server/users/src/storage"
 	"github.com/wzslr321/road_runner/server/users/src/util"
@@ -20,14 +21,20 @@ type IUserService interface {
 }
 
 type UsersService struct {
-	db        storage.IUserStorage
-	validator util.IValidator
+	db            storage.IUserStorage
+	validator     util.IValidator
+	mapper        mapper.IUserMapper
+	authenticator IAuthenticator
+	authorizer    IAuthorizer
 }
 
-func NewUsersService() *UsersService {
+func NewUsersService(db storage.IUserStorage, userMapper mapper.IUserMapper, validator util.IValidator, authenticator IAuthenticator, authorizer IAuthorizer) *UsersService {
 	return &UsersService{
-		db:        storage.New(),
-		validator: util.NewValidator(),
+		db:            db,
+		validator:     validator,
+		mapper:        userMapper,
+		authenticator: authenticator,
+		authorizer:    authorizer,
 	}
 }
 
@@ -102,6 +109,7 @@ func (s *UsersService) CreateUser(ctx context.Context, req *pb.CreateUserRequest
 		Username: req.Username,
 		Password: string(hashedPassword),
 		Email:    req.Email,
+		Role:     int(domain.Common),
 		Id:       uuid.Must(uuid.NewRandom()).String(),
 	}
 
@@ -122,12 +130,29 @@ func (s *UsersService) CreateUser(ctx context.Context, req *pb.CreateUserRequest
 }
 
 func (s *UsersService) LoginUser(ctx context.Context, req *pb.LoginUserRequest) *ServiceResponse {
+	authenticationResult := s.authenticator.AuthenticateUser(req.Username, req.Password)
+	if authenticationResult.Status != SUCCESS {
+		return authenticationResult
+	}
+
+	userDTO := authenticationResult.Body[0].(*pb.UserDTO)
+	tokens, err := s.authorizer.GenerateTokens(userDTO)
+
+	if err != nil {
+		return &ServiceResponse{
+			Status:  FAILED,
+			Message: err.Error(),
+			Body:    []interface{}{},
+		}
+	}
+
 	return &ServiceResponse{
-		Status:  0,
-		Message: "",
-		Body:    nil,
+		Status:  SUCCESS,
+		Message: "Logged in",
+		Body:    []interface{}{tokens, userDTO},
 	}
 }
+
 func (s *UsersService) LogoutUser(ctx context.Context, req *pb.LogoutUserRequest) *ServiceResponse {
 	return &ServiceResponse{
 		Status:  0,

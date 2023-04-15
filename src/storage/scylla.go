@@ -7,6 +7,7 @@ import (
 	"github.com/wzslr321/road_runner/server/users/src/domain"
 	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
 	"log"
+	"strconv"
 )
 
 type IUserStorage interface {
@@ -55,7 +56,7 @@ func (s *UserStorage) SaveUser(user *domain.User) error {
 		return err
 	}
 
-	q := fmt.Sprintf("INSERT INTO users.users (id, email, username, password) VALUES ('%s', '%s', '%s', '%s')", user.Id, user.Email, user.Username, user.Password)
+	q := fmt.Sprintf("INSERT INTO users.users (id, email, password, role, username) VALUES ('%s', '%s', '%s', %s, '%s')", user.Id, user.Email, user.Password, strconv.Itoa(user.Role), user.Username)
 	err = session.Query(q, nil).Exec()
 	if err != nil {
 		return err
@@ -126,7 +127,7 @@ func tryToCreateKeyspace(session *gocqlx.Session) error {
 }
 
 func tryToCreateTable(session *gocqlx.Session) error {
-	q := "CREATE TABLE IF NOT EXISTS users.users (id text, email text, username text, password text, PRIMARY KEY (id))"
+	q := "CREATE TABLE IF NOT EXISTS users.users (id text, email text, username text, password text, role int, PRIMARY KEY (id))"
 	err := session.Query(q, nil).Exec()
 	if err != nil {
 		return err
