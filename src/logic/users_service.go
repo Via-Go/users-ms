@@ -1,13 +1,13 @@
 package logic
 
 import (
+	pb "buf.build/gen/go/viago/auth/protocolbuffers/go"
 	"context"
 	"github.com/google/uuid"
-	"github.com/wzslr321/road_runner/server/users/src/domain"
-	"github.com/wzslr321/road_runner/server/users/src/mapper"
-	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
-	"github.com/wzslr321/road_runner/server/users/src/storage"
-	"github.com/wzslr321/road_runner/server/users/src/util"
+	"github.com/wzslr321/road_runner/server/users/domain"
+	"github.com/wzslr321/road_runner/server/users/mapper"
+	"github.com/wzslr321/road_runner/server/users/storage"
+	"github.com/wzslr321/road_runner/server/users/util"
 	"golang.org/x/crypto/bcrypt"
 )
 

@@ -1,8 +1,8 @@
 package mapper
 
 import (
-	"github.com/wzslr321/road_runner/server/users/src/domain"
-	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
+	pb "buf.build/gen/go/viago/auth/protocolbuffers/go"
+	"github.com/wzslr321/road_runner/server/users/domain"
 )
 
 type IUserMapper interface {

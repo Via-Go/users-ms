@@ -1,8 +1,8 @@
 package domain
 
 import (
+	pb "buf.build/gen/go/viago/auth/protocolbuffers/go"
 	"github.com/golang-jwt/jwt"
-	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
 )
 
 type JwtClaims struct {

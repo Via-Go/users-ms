@@ -1,13 +1,13 @@
 package api
 
 import (
-	"github.com/wzslr321/road_runner/server/users/src/logic"
-	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
+	"buf.build/gen/go/viago/auth/bufbuild/connect-go/_goconnect"
+	"github.com/wzslr321/road_runner/server/users/logic"
 )
 
 type Server struct {
 	service logic.ILoggingService
-	pb.UnimplementedUsersServer
+	_goconnect.UnimplementedAuthHandler
 }
 
 func NewServer(service logic.ILoggingService) *Server {

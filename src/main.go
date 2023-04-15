@@ -1,17 +1,17 @@
 package main
 
 import (
+	"buf.build/gen/go/viago/auth/bufbuild/connect-go/_goconnect"
 	"crypto/tls"
 	grpcprometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
+
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/wzslr321/road_runner/server/users/src/api"
-	"github.com/wzslr321/road_runner/server/users/src/logic"
-	"github.com/wzslr321/road_runner/server/users/src/mapper"
-	"github.com/wzslr321/road_runner/server/users/src/pkg/interceptors"
-	"github.com/wzslr321/road_runner/server/users/src/pkg/metrics"
-	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
-	"github.com/wzslr321/road_runner/server/users/src/storage"
-	"github.com/wzslr321/road_runner/server/users/src/util"
+	"github.com/wzslr321/road_runner/server/users/logic"
+	"github.com/wzslr321/road_runner/server/users/mapper"
+	"github.com/wzslr321/road_runner/server/users/pkg/interceptors"
+	"github.com/wzslr321/road_runner/server/users/pkg/metrics"
+	"github.com/wzslr321/road_runner/server/users/storage"
+	"github.com/wzslr321/road_runner/server/users/util"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -64,6 +64,7 @@ func main() {
 		log.Fatalf("Failed to load cert: %v", err)
 	}
 
+	_goconnect.NewAuthHandler(authService{})
 	server := grpc.NewServer(
 		grpc.Creds(credentials.NewServerTLSFromCert(&cert)),
 		grpc.KeepaliveParams(keepalive.ServerParameters{}),
@@ -72,8 +73,11 @@ func main() {
 		grpc.ChainUnaryInterceptor(intercs.EnsureValidToken),
 	)
 
-	pb.RegisterUsersServer(server, api.NewServer(loggingService))
 	grpcprometheus.Register(server)
 	http.Handle("/metrics", promhttp.Handler())
 	server.Serve(listener) //nolint:errcheck
+}
+
+type authService struct {
+	_goconnect.UnimplementedAuthHandler
 }

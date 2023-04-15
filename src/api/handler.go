@@ -1,11 +1,11 @@
 package api
 
 import (
+	pb "buf.build/gen/go/viago/auth/protocolbuffers/go"
 	"context"
 	"errors"
-	"github.com/wzslr321/road_runner/server/users/src/domain"
-	"github.com/wzslr321/road_runner/server/users/src/logic"
-	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
+	"github.com/wzslr321/road_runner/server/users/domain"
+	"github.com/wzslr321/road_runner/server/users/logic"
 )
 
 func (s *Server) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUserResponse, error) {
