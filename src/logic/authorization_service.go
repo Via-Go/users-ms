@@ -1,10 +1,10 @@
 package logic
 
 import (
+	pb "buf.build/gen/go/viago/users-ms/protocolbuffers/go/v1"
 	"fmt"
 	"github.com/golang-jwt/jwt"
-	"github.com/wzslr321/road_runner/server/users/src/domain"
-	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
+	"github.com/wzslr321/road_runner/server/users/domain"
 	"strings"
 	"time"
 )

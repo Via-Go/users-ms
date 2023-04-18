@@ -1,9 +1,9 @@
 package logic
 
 import (
+	pb "buf.build/gen/go/viago/users-ms/protocolbuffers/go/v1"
 	"context"
 	"fmt"
-	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
 	"go.uber.org/zap"
 	"time"
 )

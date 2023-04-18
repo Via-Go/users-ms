@@ -1,8 +1,8 @@
 package logic
 
 import (
-	"github.com/wzslr321/road_runner/server/users/src/mapper"
-	"github.com/wzslr321/road_runner/server/users/src/storage"
+	"github.com/wzslr321/road_runner/server/users/mapper"
+	"github.com/wzslr321/road_runner/server/users/storage"
 	"golang.org/x/crypto/bcrypt"
 )
 

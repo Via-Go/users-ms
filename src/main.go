@@ -1,17 +1,17 @@
 package main
 
 import (
+	pb "buf.build/gen/go/viago/users-ms/grpc/go/v1/usersv1grpc"
 	"crypto/tls"
 	grpcprometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/wzslr321/road_runner/server/users/src/api"
-	"github.com/wzslr321/road_runner/server/users/src/logic"
-	"github.com/wzslr321/road_runner/server/users/src/mapper"
-	"github.com/wzslr321/road_runner/server/users/src/pkg/interceptors"
-	"github.com/wzslr321/road_runner/server/users/src/pkg/metrics"
-	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
-	"github.com/wzslr321/road_runner/server/users/src/storage"
-	"github.com/wzslr321/road_runner/server/users/src/util"
+	"github.com/wzslr321/road_runner/server/users/api"
+	"github.com/wzslr321/road_runner/server/users/logic"
+	"github.com/wzslr321/road_runner/server/users/mapper"
+	"github.com/wzslr321/road_runner/server/users/pkg/interceptors"
+	"github.com/wzslr321/road_runner/server/users/pkg/metrics"
+	"github.com/wzslr321/road_runner/server/users/storage"
+	"github.com/wzslr321/road_runner/server/users/util"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -31,12 +31,6 @@ var authorizer *logic.Authorizer
 
 func init() {
 	logger, _ := zap.NewProduction()
-	defer func(logger *zap.Logger) {
-		err := logger.Sync()
-		if err != nil {
-			panic("Couldn't initialize logger")
-		}
-	}(logger) //nolint:errcheck
 
 	db = storage.New()
 	validator = util.NewValidator()
@@ -54,14 +48,14 @@ func main() {
 	}
 	intercs := interceptors.NewInterceptorManager(ms)
 
-	listener, err := net.Listen("tcp", ":50051")
-	if err != nil {
-		log.Fatalf("Failed to listen: %v", err)
-	}
-
 	cert, err := tls.LoadX509KeyPair("./cert/server_cert.pem", "./cert/server_key.pem")
 	if err != nil {
 		log.Fatalf("Failed to load cert: %v", err)
+	}
+
+	listener, err := net.Listen("tcp", ":50051")
+	if err != nil {
+		log.Fatalf("Failed to listen: %v", err)
 	}
 
 	server := grpc.NewServer(
@@ -75,5 +69,5 @@ func main() {
 	pb.RegisterUsersServer(server, api.NewServer(loggingService))
 	grpcprometheus.Register(server)
 	http.Handle("/metrics", promhttp.Handler())
-	server.Serve(listener) //nolint:errcheck
+	_ = server.Serve(listener)
 }

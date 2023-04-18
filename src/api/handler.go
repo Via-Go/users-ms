@@ -1,11 +1,11 @@
 package api
 
 import (
+	pb "buf.build/gen/go/viago/users-ms/protocolbuffers/go/v1"
 	"context"
 	"errors"
-	"github.com/wzslr321/road_runner/server/users/src/domain"
-	"github.com/wzslr321/road_runner/server/users/src/logic"
-	pb "github.com/wzslr321/road_runner/server/users/src/proto-gen"
+	"github.com/wzslr321/road_runner/server/users/domain"
+	"github.com/wzslr321/road_runner/server/users/logic"
 )
 
 func (s *Server) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUserResponse, error) {
@@ -18,7 +18,7 @@ func (s *Server) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUs
 		Id:       serviceResponse.Body[0].(*domain.User).Id,
 		Username: serviceResponse.Body[0].(*domain.User).Username,
 		Email:    serviceResponse.Body[0].(*domain.User).Email,
-		Code:     "200",
+		Status:   pb.Status_SUCCESS,
 		Message:  serviceResponse.Message,
 	}
 
@@ -32,7 +32,7 @@ func (s *Server) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (*pb
 	}
 
 	response := &pb.UpdateUserResponse{
-		Code:    "200",
+		Status:  pb.Status_SUCCESS,
 		Message: serviceResponse.Message,
 	}
 
@@ -46,7 +46,7 @@ func (s *Server) DeleteUser(ctx context.Context, req *pb.DeleteUserRequest) (*pb
 	}
 
 	response := &pb.DeleteUserResponse{
-		Code:    "200",
+		Status:  pb.Status_SUCCESS,
 		Message: serviceResponse.Message,
 	}
 
@@ -60,7 +60,7 @@ func (s *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb
 	}
 
 	response := &pb.CreateUserResponse{
-		Code:    "200",
+		Status:  pb.Status_SUCCESS,
 		Message: serviceResponse.Message,
 	}
 
@@ -71,7 +71,7 @@ func (s *Server) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (*pb.L
 	serviceResponse := s.service.ExecuteAndLogLoginUser(ctx, req)
 	if serviceResponse.Status != logic.SUCCESS {
 		return &pb.LoginUserResponse{
-			Success: false,
+			Status:  pb.Status_SUCCESS,
 			Message: serviceResponse.Message,
 		}, errors.New(serviceResponse.Message)
 	}
@@ -80,7 +80,7 @@ func (s *Server) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (*pb.L
 	userDTO := serviceResponse.Body[1].(*pb.UserDTO)
 
 	return &pb.LoginUserResponse{
-		Success:      true,
+		Status:       pb.Status_SUCCESS,
 		Message:      serviceResponse.Message,
 		JwtToken:     tokens["Base token"],
 		RefreshToken: tokens["Refresh token"],
@@ -95,7 +95,7 @@ func (s *Server) LogoutUser(ctx context.Context, req *pb.LogoutUserRequest) (*pb
 	}
 
 	response := &pb.LogoutUserResponse{
-		Success: false,
+		Status:  pb.Status_SUCCESS,
 		Message: serviceResponse.Message,
 	}
 
