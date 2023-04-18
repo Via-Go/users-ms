@@ -1,8 +1,6 @@
-buf.build/gen/go/viago/auth/bufbuild/connect-go v1.6.0-20230415224332-f5e8638609cf.1 h1:t8lYlAZqY3jUKIDStDNnCnQjU6EHKh6OdiBCcQZdLX0=
-buf.build/gen/go/viago/auth/bufbuild/connect-go v1.6.0-20230415224332-f5e8638609cf.1/go.mod h1:Q9IyI+29BTrSk4hwbb+R2nvOriYrdarmuPOTDNicQ0Y=
-buf.build/gen/go/viago/auth/grpc/go v1.3.0-20230415224332-f5e8638609cf.1 h1:8mq7KPwFYSnDfqvuOL0Akt8IDgnpvc/4MGCRPVAE7go=
-buf.build/gen/go/viago/auth/grpc/go v1.3.0-20230415224332-f5e8638609cf.1/go.mod h1:U1DEgYO41inDPIHbpgYW6OShOI92dFZkANt7SqlpuM4=
-buf.build/gen/go/viago/auth/protocolbuffers/go v1.28.1-20230415224332-f5e8638609cf.4/go.mod h1:+/LwbgeQd0j/d2c2vqNOuNxOHUDYc5JFdrSbg4ezzb4=
+buf.build/gen/go/viago/auth/grpc/go v1.3.0-20230415231549-966a6bcbab9e.1 h1:awlHwTQQgkBC+twCceHCZXjxSFWOiBcYjD/Oy5GrDFY=
+buf.build/gen/go/viago/auth/grpc/go v1.3.0-20230415231549-966a6bcbab9e.1/go.mod h1:WGGiZQWkYmabR2df55iRJemTSXsR6Sm0gw8eKVuyZcM=
+buf.build/gen/go/viago/auth/protocolbuffers/go v1.28.1-20230415231549-966a6bcbab9e.4/go.mod h1:+/LwbgeQd0j/d2c2vqNOuNxOHUDYc5JFdrSbg4ezzb4=
 buf.build/gen/go/viago/auth/protocolbuffers/go v1.30.0-20230415224332-f5e8638609cf.1 h1:LsL+O7mKiMIRQ41jgNRngdvRrBT+v3+q+K60x9OqU6Y=
 buf.build/gen/go/viago/auth/protocolbuffers/go v1.30.0-20230415224332-f5e8638609cf.1/go.mod h1:K6zaLeRuo1yRS3AoQBmJegHfjaqbpF0Bh3T0E546bLk=
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
@@ -410,8 +408,6 @@ github.com/bitly/go-hostpool v0.0.0-20171023180738-a3a6125de932 h1:mXoPYz/Ul5HYE
 github.com/bitly/go-hostpool v0.0.0-20171023180738-a3a6125de932/go.mod h1:NOuUCSz6Q9T7+igc/hlvDOUdtWKryOrtFyIVABv/p7k=
 github.com/bmizerany/assert v0.0.0-20160611221934-b7ed37b82869 h1:DDGfHa7BWjL4YnC6+E63dPcxHo2sUxDIu8g3QgEJdRY=
 github.com/bmizerany/assert v0.0.0-20160611221934-b7ed37b82869/go.mod h1:Ekp36dRnpXw/yCqJaO+ZrUyxD+3VXMFFr56k5XYrpB4=
-github.com/bufbuild/connect-go v1.6.0 h1:OCEB8JuEuvcY5lEKZCQE95CUscqkDtLnQceNhDgi92k=
-github.com/bufbuild/connect-go v1.6.0/go.mod h1:GmMJYR6orFqD0Y6ZgX8pwQ8j9baizDrIQMm1/a6LnHk=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/census-instrumentation/opencensus-proto v0.3.0/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/census-instrumentation/opencensus-proto v0.4.1/go.mod h1:4T9NM4+4Vw91VeyqjLS6ao50K5bOcLKN6Q42XnYaRYw=
@@ -684,8 +680,6 @@ github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyC
 github.com/valyala/fasttemplate v1.2.1/go.mod h1:KHLXt3tVN2HBp8eijSv/kGJopbvo7S+qRAEEKiv+SiQ=
 github.com/valyala/fasttemplate v1.2.2 h1:lxLXG0uE3Qnshl9QyaK6XJxMXlQZELvChBOCmQD0Loo=
 github.com/valyala/fasttemplate v1.2.2/go.mod h1:KHLXt3tVN2HBp8eijSv/kGJopbvo7S+qRAEEKiv+SiQ=
-github.com/wzslr321/road_runner/server/users/src v0.0.0-20230330094258-546cffa2ed31 h1:NGC5TrHgU5CfwadmNLzhtSSPNy7ai9ggF83iyKaXNTI=
-github.com/wzslr321/road_runner/server/users/src v0.0.0-20230330094258-546cffa2ed31/go.mod h1:OKVziwjjzG4M3tnx10EFDA2ZvfTUyq7q6xMHZSGuZO8=
 github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=

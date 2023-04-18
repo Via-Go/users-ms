@@ -2,7 +2,7 @@ package interceptors
 
 import (
 	"context"
-	"github.com/wzslr321/road_runner/server/users/src/pkg/metrics"
+	"github.com/wzslr321/road_runner/server/users/pkg/metrics"
 	"google.golang.org/grpc"
 	"net/http"
 	"time"

@@ -1,11 +1,11 @@
 package main
 
 import (
-	"buf.build/gen/go/viago/auth/bufbuild/connect-go/_goconnect"
+	pb "buf.build/gen/go/viago/auth/grpc/go/_gogrpc"
 	"crypto/tls"
 	grpcprometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
-
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/wzslr321/road_runner/server/users/api"
 	"github.com/wzslr321/road_runner/server/users/logic"
 	"github.com/wzslr321/road_runner/server/users/mapper"
 	"github.com/wzslr321/road_runner/server/users/pkg/interceptors"
@@ -31,12 +31,6 @@ var authorizer *logic.Authorizer
 
 func init() {
 	logger, _ := zap.NewProduction()
-	defer func(logger *zap.Logger) {
-		err := logger.Sync()
-		if err != nil {
-			panic("Couldn't initialize logger")
-		}
-	}(logger) //nolint:errcheck
 
 	db = storage.New()
 	validator = util.NewValidator()
@@ -54,17 +48,16 @@ func main() {
 	}
 	intercs := interceptors.NewInterceptorManager(ms)
 
-	listener, err := net.Listen("tcp", ":50051")
-	if err != nil {
-		log.Fatalf("Failed to listen: %v", err)
-	}
-
 	cert, err := tls.LoadX509KeyPair("./cert/server_cert.pem", "./cert/server_key.pem")
 	if err != nil {
 		log.Fatalf("Failed to load cert: %v", err)
 	}
 
-	_goconnect.NewAuthHandler(authService{})
+	listener, err := net.Listen("tcp", ":50051")
+	if err != nil {
+		log.Fatalf("Failed to listen: %v", err)
+	}
+
 	server := grpc.NewServer(
 		grpc.Creds(credentials.NewServerTLSFromCert(&cert)),
 		grpc.KeepaliveParams(keepalive.ServerParameters{}),
@@ -73,11 +66,8 @@ func main() {
 		grpc.ChainUnaryInterceptor(intercs.EnsureValidToken),
 	)
 
+	pb.RegisterAuthServer(server, api.NewServer(loggingService))
 	grpcprometheus.Register(server)
 	http.Handle("/metrics", promhttp.Handler())
-	server.Serve(listener) //nolint:errcheck
-}
-
-type authService struct {
-	_goconnect.UnimplementedAuthHandler
+	_ = server.Serve(listener)
 }
