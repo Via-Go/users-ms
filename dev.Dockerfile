@@ -9,7 +9,6 @@ RUN go install github.com/cosmtrek/air@latest && \
     go mod download && \
     go mod verify
 
-
 COPY src/ .
 
 CMD air
