@@ -1,7 +1,7 @@
 package main
 
 import (
-	pb "buf.build/gen/go/viago/auth/grpc/go/_gogrpc"
+	pb "buf.build/gen/go/viago/users-ms/grpc/go/v1/usersv1grpc"
 	"crypto/tls"
 	grpcprometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -66,7 +66,7 @@ func main() {
 		grpc.ChainUnaryInterceptor(intercs.EnsureValidToken),
 	)
 
-	pb.RegisterAuthServer(server, api.NewServer(loggingService))
+	pb.RegisterUsersServer(server, api.NewServer(loggingService))
 	grpcprometheus.Register(server)
 	http.Handle("/metrics", promhttp.Handler())
 	_ = server.Serve(listener)

@@ -1,7 +1,7 @@
 package logic
 
 import (
-	pb "buf.build/gen/go/viago/auth/protocolbuffers/go"
+	pb "buf.build/gen/go/viago/users-ms/protocolbuffers/go/v1"
 	"context"
 	"fmt"
 	"go.uber.org/zap"

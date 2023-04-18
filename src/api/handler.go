@@ -1,7 +1,7 @@
 package api
 
 import (
-	pb "buf.build/gen/go/viago/auth/protocolbuffers/go"
+	pb "buf.build/gen/go/viago/users-ms/protocolbuffers/go/v1"
 	"context"
 	"errors"
 	"github.com/wzslr321/road_runner/server/users/domain"

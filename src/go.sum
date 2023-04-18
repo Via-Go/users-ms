@@ -3,6 +3,11 @@ buf.build/gen/go/viago/auth/grpc/go v1.3.0-20230415231549-966a6bcbab9e.1/go.mod 
 buf.build/gen/go/viago/auth/protocolbuffers/go v1.28.1-20230415231549-966a6bcbab9e.4/go.mod h1:+/LwbgeQd0j/d2c2vqNOuNxOHUDYc5JFdrSbg4ezzb4=
 buf.build/gen/go/viago/auth/protocolbuffers/go v1.30.0-20230415224332-f5e8638609cf.1 h1:LsL+O7mKiMIRQ41jgNRngdvRrBT+v3+q+K60x9OqU6Y=
 buf.build/gen/go/viago/auth/protocolbuffers/go v1.30.0-20230415224332-f5e8638609cf.1/go.mod h1:K6zaLeRuo1yRS3AoQBmJegHfjaqbpF0Bh3T0E546bLk=
+buf.build/gen/go/viago/users-ms/grpc/go v1.3.0-20230418120306-e4fea8984b02.1 h1:ctB37dsRp0Tve+Nx0xobuCZ40l0iEKcAMsuKM4yPAog=
+buf.build/gen/go/viago/users-ms/grpc/go v1.3.0-20230418120306-e4fea8984b02.1/go.mod h1:m5OcFfy4LX7PtGPP817IHchM0C+LtAZbgajEw6hzuig=
+buf.build/gen/go/viago/users-ms/protocolbuffers/go v1.28.1-20230418120306-e4fea8984b02.4/go.mod h1:nWrr3dieoF+gQtgMM/TXXdMSEQDOl3bLJjEQcnzG1jk=
+buf.build/gen/go/viago/users-ms/protocolbuffers/go v1.30.0-20230418120306-e4fea8984b02.1 h1:bO/1fvxfrGj/g2amqcncstiZSSoA5M8ENCItWFiMfK8=
+buf.build/gen/go/viago/users-ms/protocolbuffers/go v1.30.0-20230418120306-e4fea8984b02.1/go.mod h1:zLW8jtP74ZBujQQ1YdQ+jaVkiOR3215JiPMuNO6OQN0=
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 cloud.google.com/go v0.38.0/go.mod h1:990N+gfupTy94rShfmMCWGDn0LpTmnzTp2qbd1dvSRU=

@@ -1,7 +1,7 @@
 package storage
 
 import (
-	pb "buf.build/gen/go/viago/auth/protocolbuffers/go"
+	pb "buf.build/gen/go/viago/users-ms/protocolbuffers/go/v1"
 	"fmt"
 	"github.com/gocql/gocql"
 	"github.com/scylladb/gocqlx/v2"

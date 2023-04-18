@@ -5,8 +5,6 @@ go 1.19
 replace github.com/gocql/gocql => github.com/scylladb/gocql v1.10.0
 
 require (
-	buf.build/gen/go/viago/auth/grpc/go v1.3.0-20230415231549-966a6bcbab9e.1
-	buf.build/gen/go/viago/auth/protocolbuffers/go v1.30.0-20230415224332-f5e8638609cf.1
 	github.com/gocql/gocql v1.3.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/uuid v1.3.0
@@ -20,6 +18,8 @@ require (
 )
 
 require (
+	buf.build/gen/go/viago/users-ms/grpc/go v1.3.0-20230418120306-e4fea8984b02.1 // indirect
+	buf.build/gen/go/viago/users-ms/protocolbuffers/go v1.30.0-20230418120306-e4fea8984b02.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
