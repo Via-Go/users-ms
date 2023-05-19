@@ -2,7 +2,6 @@ package main
 
 import (
 	pb "buf.build/gen/go/viago/users-ms/grpc/go/v1/usersv1grpc"
-	"crypto/tls"
 	grpcprometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/wzslr321/road_runner/server/users/api"
@@ -14,7 +13,6 @@ import (
 	"github.com/wzslr321/road_runner/server/users/util"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/keepalive"
 	"log"
 	"net"
@@ -48,7 +46,7 @@ func main() {
 	}
 	intercs := interceptors.NewInterceptorManager(ms)
 
-	cert, err := tls.LoadX509KeyPair("./cert/server_cert.pem", "./cert/server_key.pem")
+	// cert, err := tls.LoadX509KeyPair("./cert/server_cert.pem", "./cert/server_key.pem")
 	if err != nil {
 		log.Fatalf("Failed to load cert: %v", err)
 	}
@@ -59,7 +57,7 @@ func main() {
 	}
 
 	server := grpc.NewServer(
-		grpc.Creds(credentials.NewServerTLSFromCert(&cert)),
+		// grpc.Creds(credentials.NewServerTLSFromCert(&cert)),
 		grpc.KeepaliveParams(keepalive.ServerParameters{}),
 		grpc.UnaryInterceptor(intercs.Metrics),
 		grpc.ChainUnaryInterceptor(grpcprometheus.UnaryServerInterceptor),

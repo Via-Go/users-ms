@@ -132,7 +132,11 @@ func (s *UsersService) CreateUser(ctx context.Context, req *pb.CreateUserRequest
 func (s *UsersService) LoginUser(ctx context.Context, req *pb.LoginUserRequest) *ServiceResponse {
 	authenticationResult := s.authenticator.AuthenticateUser(req.Username, req.Password)
 	if authenticationResult.Status != SUCCESS {
-		return authenticationResult
+		return &ServiceResponse{
+			Status:  FAILED,
+			Message: authenticationResult.Message,
+			Body:    []interface{}{},
+		}
 	}
 
 	userDTO := authenticationResult.Body[0].(*pb.UserDTO)

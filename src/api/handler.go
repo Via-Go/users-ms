@@ -71,9 +71,9 @@ func (s *Server) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (*pb.L
 	serviceResponse := s.service.ExecuteAndLogLoginUser(ctx, req)
 	if serviceResponse.Status != logic.SUCCESS {
 		return &pb.LoginUserResponse{
-			Status:  pb.Status_SUCCESS,
+			Status:  pb.Status_ERROR,
 			Message: serviceResponse.Message,
-		}, errors.New(serviceResponse.Message)
+		}, nil
 	}
 
 	tokens := serviceResponse.Body[0].(map[string]string)

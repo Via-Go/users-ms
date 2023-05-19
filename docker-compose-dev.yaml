@@ -55,4 +55,4 @@ services:
 
 networks:
   users_network:
-    driver: bridge
+    driver: host 
