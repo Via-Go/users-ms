@@ -1,3 +1,5 @@
+all: gen run
+
 gen:
 	@echo "Generating certificates"
 	make cert -C src
